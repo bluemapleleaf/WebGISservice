@@ -1,9 +1,12 @@
 package com.example.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @author : hongbo
@@ -12,14 +15,14 @@ import lombok.Data;
 
 @TableName("user")
 @Data
-public class User {
+public class User implements Serializable {
     @TableId(value ="id", type = IdType.AUTO)
     private Integer id;
-    private String username;
-    private String nickName;
+    private String userName;
+    private String realName;
     private String password;
-    private Integer age;
-    private String sex;
+    private String phoneNumber;
+    private Integer type;
     private String address;
-
+    private String affiliation;
 }
