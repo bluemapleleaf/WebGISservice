@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.common.Result;
 import com.example.demo.entity.LostAndFound;
-import com.example.demo.entity.Repair;
 import com.example.demo.service.ILostAndFoundService;
-import com.example.demo.service.IRepairService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,21 +26,30 @@ public class LostAndFoundController {
     //失物招领事件上传，保存操作
     @PostMapping
     public Result<?> save(@RequestBody LostAndFound lostAndFound){
-        lostAndFoundService.save(lostAndFound);
-        return Result.success();
+        if(lostAndFoundService.save(lostAndFound)){
+            return Result.success();
+        }else{
+            return Result.error("-1","插入失败");
+        }
     }
 
     //修改操作
     @PutMapping
     public Result<?> update(@RequestBody LostAndFound lostAndFound){
-        lostAndFoundService.updateById(lostAndFound);
-        return Result.success();
+        if(lostAndFoundService.updateById(lostAndFound)) {
+            return Result.success();
+        }else{
+            return Result.error("-1","更新失败");
+        }
     }
 
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id){
-        lostAndFoundService.removeById(id);
-        return Result.success();
+        if(lostAndFoundService.removeById(id)) {
+            return Result.success();
+        }else{
+            return Result.error("-1","删除失败");
+        }
     }
 
     //找到一个

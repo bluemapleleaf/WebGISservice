@@ -27,20 +27,29 @@ public class AnnouncementController {
 
     @PostMapping
     public Result<?> save(@RequestBody Announcement announcement){
-        announcementService.save(announcement);
-        return Result.success();
+        if(announcementService.save(announcement)){
+            return Result.success();
+        }else{
+            return Result.error("-1","插入失败");
+        }
     }
 
     @PutMapping
     public Result<?> update(@RequestBody Announcement announcement){
-        announcementService.updateById(announcement);
-        return Result.success();
+        if(announcementService.updateById(announcement)){
+            return Result.success();
+        }else{
+            return Result.error("-1","更新失败");
+        }
     }
 
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id){
-        announcementService.removeById(id);
-        return Result.success();
+        if(announcementService.removeById(id)){
+            return Result.success();
+        }else {
+            return Result.error("-1", "删除失败");
+        }
     }
 
     @GetMapping

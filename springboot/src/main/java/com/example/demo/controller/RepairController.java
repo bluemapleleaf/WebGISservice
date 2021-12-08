@@ -29,21 +29,30 @@ public class RepairController {
     //维修上传，保存操作
     @PostMapping
     public Result<?> save(@RequestBody Repair repair){
-        repairService.save(repair);
-        return Result.success();
+        if(repairService.save(repair)){
+            return Result.success();
+        }else{
+            return Result.error("-1","插入失败");
+        }
     }
 
     //维修修改
     @PutMapping
     public Result<?> update(@RequestBody Repair repair){
-        repairService.updateById(repair);
-        return Result.success();
+        if(repairService.updateById(repair)) {
+            return Result.success();
+        }else{
+            return Result.error("-1","更新失败");
+        }
     }
 
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id){
-        repairService.removeById(id);
-        return Result.success();
+        if(repairService.removeById(id)) {
+            return Result.success();
+        }else{
+            return Result.error("-1","删除失败");
+        }
     }
 
     //找到一个

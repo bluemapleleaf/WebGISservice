@@ -68,15 +68,21 @@ public class UserController {
     @PutMapping
     public Result<?> update(@RequestBody User user){
 //        userMapper.updateById(user);
-        userService.updateById(user);
-        return Result.success();
+        if(userService.updateById(user)){
+            return Result.success();
+        }else{
+            return Result.error("-1","更新失败");
+        }
     }
 
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id){
 //        userMapper.deleteById(id);
-        userService.removeById(id);
-        return Result.success();
+        if(userService.removeById(id)){
+            return Result.success();
+        }else{
+            return Result.error("-1","删除失败");
+        }
     }
 
     @GetMapping
