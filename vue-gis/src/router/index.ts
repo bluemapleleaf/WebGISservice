@@ -1,15 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HelloWorld from '../components/HelloWorld.vue'
+
 const routerHistory = createWebHistory()
-// createWebHashHistory hash 路由
-// createWebHistory history 路由
-// createMemoryHistory 带缓存 history 路由
 const router = createRouter({
     history: routerHistory,
     routes: [
         {
             path: '/',
-            component: HelloWorld
+            name: 'Index',
+            component: () => import('../views/Index.vue')
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: () => import('../views/LoginRegister.vue')
+        },
+        {
+            path: '/:catchAll(.*)',
+            name: '404',
+            component: () => import('../views/404.vue')
         },
     ]
 })
