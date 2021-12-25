@@ -4,9 +4,14 @@
         <div class="froms-container">
             <div class="signin-signup">
                 <!-- 登录 -->
-                <h1>登录</h1>
+                <LoginForm id="form" :loginUser="loginUser" :rules="rules" />
+
                 <!-- 注册 -->
-                <h1>注册</h1>
+                <RegisterForm
+                    class="registerForm"
+                    :registerUser="registerUser"
+                    :registerRules="registerRules"
+                />
             </div>
         </div>
         <!-- 左右切换动画 -->
@@ -33,7 +38,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-
+import LoginForm from "../components/LoginForm.vue";
+import RegisterForm from "../components/RegisterForm.vue";
+import { loginUser, rules } from "../utils/loginValidators";
+import { registerUser, registerRules } from "../utils/registerValidators";
 const signUpMode = ref(false);
 </script>
 
@@ -366,6 +374,7 @@ const signUpMode = ref(false);
 }
 
 /* 控制login & register显示 */
+
 form {
     padding: 0rem 5rem;
     transition: all 0.2s 0.7s;
