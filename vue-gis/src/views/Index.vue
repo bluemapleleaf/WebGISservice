@@ -13,7 +13,7 @@
         >
             <h1>欢迎进入Web GIS Service~</h1>
         </div>
-        <div v-show="!visable" style="flex: 1">
+        <div v-show="!visable" style="flex: 1;margin: 10px;">
             <router-view />
         </div>
     </div>
@@ -28,18 +28,13 @@ const route = useRoute();
 watch(
     () => route.path,
     () => {
-        console.log("监听到变化");
+        if(route.path=="/"){
+            visable.value = true;
+        }
+        else{ 
+            visable.value = false;
+        }
     }
 );
 
-//   watch: {
-//     $route(to: any, from: any) {
-//       console.log(to, from);
-//       if (to.path == "/") {
-//         this.visable = true;
-//       } else {
-//         this.visable = false;
-//       }
-//     },
-//   },
 </script>
