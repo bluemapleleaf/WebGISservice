@@ -9,11 +9,26 @@ const router = createRouter({
       name: "Index",
       component: () => import("../views/Index.vue"),
       children: [
-        // {
-        //   path: "/form",
-        //   name: "Form",
-        //   component: Form,
-        // },
+        {
+          path: "/usermanage",
+          name: "UserManage",
+          component: () => import("../views/UserManage.vue"),
+        },
+        {
+          path: "/eventlist",
+          name: "EventList",
+          component: () => import("../views/EventList.vue"),
+        },
+        {
+          path: "/eventmap",
+          name: "EventMap",
+          component: () => import("../views/EventMap.vue"),
+        },
+        {
+            path: "/announce",
+            name: "Announce",
+            component: () => import("../views/Announce.vue"),
+          },
       ],
     },
     {
