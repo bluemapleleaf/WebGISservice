@@ -1,74 +1,48 @@
 <template>
-  <el-icon @click="handleCollapse" :color="iconColor" size="30"
-    ><expand
-  /></el-icon>
-  <el-menu
-    default-active="/usermanage"
-    class="el-menu-vertical-demo"
-    :collapse="isCollapse"
-    @open="handleOpen"
-    @close="handleClose"
-  >
+  <el-menu default-active="/usermanage" class="el-menu-vertical-demo" router>
     <el-menu-item index="/usermanage">
-      <el-icon><avatar /></el-icon>
+      <el-icon>
+        <avatar />
+      </el-icon>
       <template #title>用户管理</template>
     </el-menu-item>
-    <el-sub-menu index="/eventlist">
-      <template #title>
-        <el-icon><icon-menu /></el-icon>
-        <span>事件管理</span>
-      </template>
-      <el-menu-item index="/eventlist">
-        <el-icon><document /></el-icon>
-        <template #title>事件列表</template>
-      </el-menu-item>
-      <el-menu-item index="/eventmap">
-        <el-icon><location /></el-icon>
-        <template #title>事件地图</template>
-      </el-menu-item>
-    </el-sub-menu>
+
+    <el-menu-item index="/eventlist">
+      <el-icon>
+        <document />
+      </el-icon>
+      <template #title>事件列表</template>
+    </el-menu-item>
+    <el-menu-item index="/eventmap">
+      <el-icon>
+        <location />
+      </el-icon>
+      <template #title>事件地图</template>
+    </el-menu-item>
 
     <el-menu-item index="/announce">
-      <el-icon><chat-dot-square /></el-icon>
+      <el-icon>
+        <chat-dot-square />
+      </el-icon>
       <template #title>事件公告发布</template>
     </el-menu-item>
     <el-menu-item index="/analysis">
-      <el-icon><data-analysis /></el-icon>
+      <el-icon>
+        <data-analysis />
+      </el-icon>
       <template #title>可视化分析</template>
     </el-menu-item>
   </el-menu>
 </template>
 
 <script setup lang="ts">
-import { defineComponent, ref } from "vue";
 import {
   Location,
   Document,
-  Menu as IconMenu,
-  Setting,
-  Expand,
   ChatDotSquare,
   Avatar,
   DataAnalysis
 } from "@element-plus/icons-vue";
-
-let isCollapse = ref(true);
-let iconColor = ref("inherit");
-function handleCollapse() {
-  console.log("isCollapse是", isCollapse);
-  if (isCollapse) {
-    iconColor.value = "dodgerblue";
-  } else {
-    iconColor.value = "inherit";
-  }
-  isCollapse.value = !isCollapse.value;
-}
-const handleOpen = (key: any, keyPath: any) => {
-  console.log(key, keyPath);
-};
-const handleClose = (key: any, keyPath: any) => {
-  console.log(key, keyPath);
-};
 </script>
 
 <style>

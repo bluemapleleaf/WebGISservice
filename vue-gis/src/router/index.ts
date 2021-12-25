@@ -25,10 +25,15 @@ const router = createRouter({
           component: () => import("../views/EventMap.vue"),
         },
         {
-            path: "/announce",
-            name: "Announce",
-            component: () => import("../views/Announce.vue"),
-          },
+          path: "/analysis",
+          name: "Analysis",
+          component: () => import("../views/Analysis.vue"),
+        },
+        {
+          path: "/announce",
+          name: "Announce",
+          component: () => import("../views/Announce.vue"),
+        },
       ],
     },
     {
