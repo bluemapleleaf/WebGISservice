@@ -223,7 +223,7 @@ const signUpMode = ref(false);
 
 .container.sign-up-mode form.sign-up-form {
     opacity: 1;
-    z-index: 2;
+    /* z-index: 2; */
 }
 
 .container.sign-up-mode form.sign-in-form {
