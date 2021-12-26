@@ -7,21 +7,14 @@
         style="width: 300px; margin-bottom: 10px"
         size="small"
       />
-      <el-button
-        type="primary"
-        @click="searchEvent"
-        style="margin-left: 10px"
-        size="small"
-        >查询</el-button
-      >
+      <el-button type="primary" @click="searchEvent" style="margin-left: 10px" size="small">查询</el-button>
       <el-button
         type="primary"
         plain
         @click="getEventList"
         style="margin-left: 10px"
         size="small"
-        >重置</el-button
-      >
+      >重置</el-button>
     </div>
 
     <div id="container" style="flex: 1"></div>
@@ -37,19 +30,42 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-
+import { onMounted, ref } from "vue";
+import { shallowRef } from '@vue/reactivity'
+import AMapLoader from '@amap/amap-jsapi-loader';
+// 选择不同的类别
 let input = ref("");
-function searchEvent() {}
+function searchEvent() { }
 
-function getEventList() {}
+function getEventList() { }
 
 let radio = ref("New York");
-
-function loadMap() {
-  var map = new BMap.Map("container");
-  var point = new BMap.Point(116.404, 39.915);
-  map.centerAndZoom(point, 15);
-  map.enableScrollWheelZoom(true);
+let map = shallowRef(null);
+function initMap() {
+  AMapLoader.load({
+    key: "cdbb4acf696f8080139bc1cb2a29000d",             // 申请好的Web端开发者Key，首次调用 load 时必填
+    version: "2.0",      // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+    plugins: [''],       // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+  }).then((AMap) => {
+    map = new AMap.Map("container", {  //设置地图容器id
+      viewMode: "3D",    //是否为3D地图模式
+      zoom: 5,           //初始化地图级别
+      center: [105.602725, 37.076636], //初始化地图中心点位置
+    });
+  }).catch(e => {
+    console.log(e);
+  })
 }
+onMounted(() => {
+  initMap();
+})
 </script>
+
+<style scoped>
+#container {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 800px;
+}
+</style>
