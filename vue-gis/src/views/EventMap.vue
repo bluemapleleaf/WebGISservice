@@ -72,6 +72,8 @@ function initMap() {
       console.log(e);
     });
 }
+
+
 onMounted(() => {
   initMap();
 });
