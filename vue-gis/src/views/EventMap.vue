@@ -27,10 +27,10 @@
     <div id="container" style="flex: 1"></div>
     <div style="margin: 0 auto">
       <el-radio-group v-model="radio" @change="getEventList" size="small">
-        <el-radio-button label="New York">试试</el-radio-button>
-        <el-radio-button label="Washington"></el-radio-button>
-        <el-radio-button label="Los Angeles"></el-radio-button>
-        <el-radio-button label="Chicago"></el-radio-button>
+        <el-radio-button label="all">全部事件</el-radio-button>
+        <el-radio-button label="repair">维修</el-radio-button>
+        <el-radio-button label="found">寻物启事</el-radio-button>
+        <el-radio-button label="lost">失物招领</el-radio-button>
       </el-radio-group>
     </div>
   </div>
@@ -44,7 +44,7 @@ function searchEvent() {}
 
 function getEventList() {}
 
-let radio = ref("New York");
+let radio = ref("all");
 
 function loadMap() {
   var map = new BMap.Map("container");
