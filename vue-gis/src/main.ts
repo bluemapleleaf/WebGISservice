@@ -6,6 +6,7 @@ import 'element-plus/dist/index.css'
 import axios from './utils/http'
 
 const app = createApp(App).use(router).use(ElementPlus)
+
 app.mount('#app')
 app.config.globalProperties.$axios = axios
 

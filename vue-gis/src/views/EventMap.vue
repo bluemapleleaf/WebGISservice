@@ -33,6 +33,7 @@
 import { onMounted, ref } from "vue";
 import { shallowRef } from '@vue/reactivity'
 import AMapLoader from '@amap/amap-jsapi-loader';
+import AMap from '@amap/amap-jsapi-loader';
 // 选择不同的类别
 let input = ref("");
 function searchEvent() { }
@@ -52,10 +53,21 @@ function initMap() {
       zoom: 5,           //初始化地图级别
       center: [105.602725, 37.076636], //初始化地图中心点位置
     });
+    // 创建一个 Marker 实例：
+    let marker = new AMap.Marker({
+      position: new AMap.LngLat(116.39, 39.9),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+      title: '北京'
+    });
+    // 将创建的点标记添加到已有的地图实例：
+
+    // @ts-ignore
+    map.add(marker);
   }).catch(e => {
     console.log(e);
   })
 }
+
+
 onMounted(() => {
   initMap();
 })

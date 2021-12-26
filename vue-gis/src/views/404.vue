@@ -1,6 +1,6 @@
 <template>
     <div class="not-found">
-        <img src="../assets/404.jpeg" alt="找不到页面" />
+        <el-image style="width: 100%; height: 100%" src="../src/assets/404.jpeg" fit="cover"></el-image>
     </div>
 </template>
 
@@ -13,14 +13,8 @@ export default {
 
 <style scoped>
 .not-found {
-    width: 100%;
-    height: 100%;
+    height: 100vh;
     overflow: hidden;
-}
-.not-found img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 </style>
 
