@@ -5,6 +5,7 @@
       placeholder="维修"
       size="small"
       style="width: 100px"
+      @change="getEventList"
     >
       <el-option
         v-for="item in options1"
@@ -15,10 +16,11 @@
       </el-option>
     </el-select>
     <el-select
-      v-model="stateValue"
+      v-model="state"
       placeholder="所有状态"
       size="small"
-      style="width: 100px;margin-left: 10px;"
+      style="width: 100px; margin-left: 10px"
+      @change="getEventList"
     >
       <el-option
         v-for="item in options2"
@@ -29,7 +31,7 @@
       </el-option>
     </el-select>
     <el-input
-      v-model="inputTitle"
+      v-model="search"
       placeholder="输入关键字"
       style="width: 300px; margin-bottom: 10px; margin-left: 10px"
       size="small"
@@ -59,20 +61,20 @@
   </div>
 
   <el-table
-    :data="tableData"
+    :data="tableData.data"
     style="width: 100%; border: 1px solid rgb(228, 228, 228)"
   >
-    <el-table-column prop="id" label="事件ID" />
-    <el-table-column prop="applyId" label="提交者ID" />
-    <el-table-column prop="finishID" label="解决者ID" />
-    <el-table-column prop="title" label="标题" />
+    <el-table-column prop="id" label="编号" width="50px" />
+    <el-table-column prop="applyId" label="提交者ID" width="65px" />
+    <el-table-column prop="finishID" label="解决者ID" width="65px" />
+    <el-table-column prop="title" label="标题" width="50px" />
     <el-table-column prop="content" label="内容" />
     <el-table-column prop="place" label="地点" />
     <el-table-column prop="latitude" label="纬度" />
     <el-table-column prop="longitude" label="经度" />
     <el-table-column prop="applyDate" label="提交时间" />
     <el-table-column prop="finishDate" label="解决时间" />
-    <el-table-column prop="state" label="完成状态" />
+    <el-table-column prop="state" label="完成状态" width="50px" />
 
     <el-table-column label="操作" width="150">
       <template #default="scope">
@@ -92,7 +94,8 @@
     <el-pagination
       background
       v-model:currentPage="currentPage"
-      :page-size="pageSize"
+      v-model:page-size="pageSize"
+      :page-sizes="[5,10,20,30,40,50,100]"
       @current-change="currentChange"
       @size-change="sizeChange"
       layout="total, sizes, prev, pager, next, jumper, ->, slot"
@@ -103,8 +106,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineComponent, reactive } from "vue";
-// 查询
+import { ref, defineComponent, reactive, onMounted } from "vue";
+import http from "../utils/http";
+// 可选项
 let options1 = ref([
   {
     value: "repair",
@@ -133,29 +137,61 @@ let options2 = ref([
     label: "已完成",
   },
 ]);
-let typeValue = ref("repair");
-let stateValue = ref("");
-let inputTitle = ref("");
-
-function getEventList(
-  page: number,
-  pagesize: number,
-  search: string,
-  type: string,
-  state: string
-) {}
-function resetEventList() {}
-function addEvent() {}
 
 // 表格
-let tableData = reactive([]);
+let tableData = reactive({
+  data: [],
+});
 function handleEdit(index: any, row: any) {}
 function handleDelete(index: any, row: any) {}
 
-//分页
-let pageSize = ref(10);
+//查询所需要的参数
+let typeValue = ref("repair");
+let state = ref("");
+let search = ref("");
+let pageSize = ref(5);
 let currentPage = ref(1);
 let total = ref(0);
-function currentChange() {}
-function sizeChange() {}
+
+// 查询事件
+function getEventList() {
+  if (typeValue.value == "repair") {
+    // 向repair表发起查询
+    http
+      .get("/api/repairs", {
+        params: {
+          pageNum: currentPage.value,
+          pageSize: pageSize.value,
+          search: search.value,
+          repairType: "",
+          state: state.value,
+        },
+      })
+      .then((res) => {
+        tableData.data = res.data.data.records;
+        console.log(tableData);
+        total.value = res.data.data.total;
+        console.log(total.value);
+      });
+  } else {
+    //   向lost_and_found表发起查询
+  }
+}
+function resetEventList() {
+  search.value = "";
+  getEventList();
+}
+function addEvent() {}
+
+//分页控制
+function currentChange() {
+getEventList()
+}
+function sizeChange() {
+getEventList()
+}
+
+onMounted(() => {
+  getEventList();
+});
 </script>
