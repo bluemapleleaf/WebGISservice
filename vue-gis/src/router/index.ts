@@ -1,52 +1,71 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
+import {computed} from "vue";
+import {store} from "../store";
 
 const routerHistory = createWebHistory();
 const router = createRouter({
-  history: routerHistory,
-  routes: [
-    {
-      path: "/",
-      name: "Index",
-      component: () => import("../views/Index.vue"),
-      children: [
+    history: routerHistory,
+    routes: [
         {
-          path: "/usermanage",
-          name: "UserManage",
-          component: () => import("../views/UserManage.vue"),
+            path: "/",
+            name: "Index",
+            component: () => import("../views/Index.vue"),
+            meta: {
+                requireAuth: true, // 判断是否需要登录
+            },
+            children: [
+                {
+                    path: "/usermanage",
+                    name: "UserManage",
+                    component: () => import("../views/UserManage.vue"),
+                    meta: {
+                        requireAuth: true, // 判断是否需要登录
+                    },
+                },
+                {
+                    path: "/eventlist",
+                    name: "EventList",
+                    component: () => import("../views/EventList.vue"),
+                    meta: {
+                        requireAuth: true, // 判断是否需要登录
+                    },
+                },
+                {
+                    path: "/eventmap",
+                    name: "EventMap",
+                    component: () => import("../views/EventMap.vue"),
+                    meta: {
+                        requireAuth: true, // 判断是否需要登录
+                    },
+                },
+                {
+                    path: "/analysis",
+                    name: "Analysis",
+                    component: () => import("../views/Analysis.vue"),
+                    meta: {
+                        requireAuth: true, // 判断是否需要登录
+                    },
+                },
+                {
+                    path: "/announce",
+                    name: "Announce",
+                    component: () => import("../views/Announce.vue"),
+                    meta: {
+                        requireAuth: true, // 判断是否需要登录
+                    },
+                },
+            ],
         },
         {
-          path: "/eventlist",
-          name: "EventList",
-          component: () => import("../views/EventList.vue"),
+            path: "/login",
+            name: "Login",
+            component: () => import("../views/LoginRegister.vue"),
         },
         {
-          path: "/eventmap",
-          name: "EventMap",
-          component: () => import("../views/EventMap.vue"),
+            path: "/:catchAll(.*)",
+            name: "404",
+            component: () => import("../views/404.vue"),
         },
-        {
-          path: "/analysis",
-          name: "Analysis",
-          component: () => import("../views/Analysis.vue"),
-        },
-        {
-          path: "/announce",
-          name: "Announce",
-          component: () => import("../views/Announce.vue"),
-        },
-      ],
-    },
-    {
-      path: "/login",
-      name: "Login",
-      component: () => import("../views/LoginRegister.vue"),
-    },
-    {
-      path: "/:catchAll(.*)",
-      name: "404",
-      component: () => import("../views/404.vue"),
-    },
-  ],
+    ],
 });
-
 export default router;

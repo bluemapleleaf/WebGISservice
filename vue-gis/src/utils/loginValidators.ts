@@ -1,17 +1,17 @@
-import { ref } from "vue";
+import {ref} from "vue";
 
 interface User {
-    email: string;
+    name: string;
     password: string;
 }
 
 export const loginUser = ref<User>({
-    email: "",
+    name: "",
     password: "",
 });
 
 interface Rules {
-    email: {
+    name: {
         type: string;
         message: string;
         required: boolean;
@@ -34,10 +34,10 @@ interface Rules {
 
 // 校验规则
 export const rules = ref<Rules>({
-    email: [
+    name: [
         {
-            type: "email",
-            message: "Email is incorrect...",
+            type: "string",
+            message: "name is incorrect...",
             required: true,
             trigger: "blur",
         },
