@@ -46,6 +46,9 @@
 <script setup lang="ts">
 import {ref, getCurrentInstance} from "vue";
 import axios from 'axios' // 仅限在当前组件使用
+import {useRouter} from "vue-router";
+import {ElMessage} from "element-plus";
+import {useStore} from "vuex";
 
 defineProps({
     registerUser: {
@@ -60,23 +63,41 @@ defineProps({
 
 // @ts-ignore
 const {ctx} = getCurrentInstance();
-
+const router = useRouter()
+const store = useStore()
 const handleRegister = (formName: string) => {
     ctx.$refs[formName].validate((valid: boolean) => {
         if (valid) {
             axios.post('/api/users/register', {
-                params: {
-                    userName: ctx.registerUser.name,
-                    password: ctx.registerUser.password,
-                    phoneNumber: ctx.registerUser.phone,
-                    address: ctx.registerUser.address,
-                    type: ctx.registerUser.role,
-                },
+                userName: ctx.registerUser.name,
+                realName: ctx.registerUser.name,
+                password: ctx.registerUser.password,
+                phoneNumber: ctx.registerUser.phoneNumber,
+                address: ctx.registerUser.address,
+                type: ctx.registerUser.role,
             }).then((res: any) => {
                 console.log(res);
+                ElMessage({
+                    message: '注册成功',
+                    type: 'success',
+                })
+                let payload = {
+                    userName: ctx.registerUser.name,
+                    realName: ctx.registerUser.name,
+                    phoneNumber: ctx.registerUser.phoneNumber,
+                    type: ctx.registerUser.role,
+                    address: ctx.registerUser.address,
+                    affiliation: "武汉大学"
+                }
+                store.commit('changeUser', payload)
+                router.push('/')
             });
         } else {
             console.log("error submit!!");
+            ctx.$message({
+                message: '注册失败',
+                type: 'error'
+            })
             return false;
         }
     });
