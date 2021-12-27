@@ -1,8 +1,9 @@
-import { ref } from "vue";
+import {ref} from "vue";
 
 interface RegisterUser {
     name: string;
-    email: string;
+    phoneNumber: string;
+    address: string;
     password: string;
     password2: string;
     role: string;
@@ -10,7 +11,8 @@ interface RegisterUser {
 
 export const registerUser = ref<RegisterUser>({
     name: "",
-    email: "",
+    phoneNumber: "",
+    address: "",
     password: "",
     password2: "",
     role: "",
@@ -27,7 +29,13 @@ interface RegisterRules {
         message: string;
         trigger: string;
     })[];
-    email: {
+    phoneNumber: {
+        type: string;
+        message: string;
+        required: boolean;
+        trigger: string;
+    }[];
+    address: {
         type: string;
         message: string;
         required: boolean;
@@ -84,10 +92,18 @@ export const registerRules = ref<RegisterRules>({
             trigger: "blur",
         },
     ],
-    email: [
+    phoneNumber: [
         {
-            type: "email",
-            message: "Email is incorrect...",
+            type: "string",
+            message: "请填写正确的手机号码",
+            required: true,
+            trigger: "blur",
+        },
+    ],
+    address: [
+        {
+            type: "string",
+            message: "请填写正确的地址",
             required: true,
             trigger: "blur",
         },
@@ -95,29 +111,29 @@ export const registerRules = ref<RegisterRules>({
     password: [
         {
             required: true,
-            message: "Password could not be empty...",
+            message: "密码不能为空",
             trigger: "blur",
         },
         {
             min: 6,
             max: 30,
-            message: "Password's length has to be 6 to 30 characters...",
+            message: "密码长度在6到30个字符",
             trigger: "blur",
         },
     ],
     password2: [
         {
             required: true,
-            message: "Password2 could not be empty...",
+            message: "再次输入密码不能为空",
             trigger: "blur",
         },
         {
             min: 6,
             max: 30,
-            message: "Password's length has to be 6 to 30 characters...",
+            message: "密码长度在6到30个字符",
             trigger: "blur",
         },
-        { validator: validatePass2, trigger: "blur" },
+        {validator: validatePass2, trigger: "blur"},
     ]
 
 });
