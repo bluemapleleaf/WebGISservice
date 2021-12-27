@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.beans.Customizer;
+import java.util.List;
 
 /**
  * @author : hongbo
@@ -88,15 +89,17 @@ public class UserController {
     @GetMapping
     public Result<?> findPage(@RequestParam(defaultValue = "1") Integer pageNum,
                               @RequestParam(defaultValue = "10") Integer pageSize ,
-                              @RequestParam(defaultValue = "") String search){
+                              @RequestParam(defaultValue = "") String search,
+                              @RequestParam(defaultValue = "") Integer type){
         LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery();
         if (StrUtil.isNotBlank(search)) {
             wrapper.like(User::getRealName, search);
         }
-
+        if(type != null) {
+            wrapper.eq(User::getType,type);
+        }
 //        Page<User> userPage = userMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
         Page<User> userPage = userService.page(new Page<>(pageNum, pageSize), wrapper);
         return Result.success(userPage);
     }
-
 }
