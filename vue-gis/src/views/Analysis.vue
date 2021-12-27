@@ -10,6 +10,7 @@ const chart = ref<any>(null);
 console.log(chart);
 // 绘制图表
 setTimeout(() => {
+    //@js-ignore
     chart.value = echarts.init(chart.value!);
     chart.value.setOption({
         title: { text: "总用户量" },
