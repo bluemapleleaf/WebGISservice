@@ -112,7 +112,7 @@
     </el-pagination>
   </div>
   <!-- 对话框 -->
-  <el-dialog v-model="dialogVisible">
+  <el-dialog v-model="dialogVisible" width="700px">
     <div
       style="
         display: flex;
@@ -121,113 +121,131 @@
         flex-direction: column;
       "
     >
-      <div style="height: 70px"><h3>编辑事件</h3></div>
+      <div style="font-size: 20px; margin-bottom: 20px">编辑事件</div>
       <el-form
         ref="Form"
-        :model="formData"
+        v-model="formData"
         size="medium"
         label-width="90px"
-        label-position="left"
+        label-position="right"
+        width="800px"
       >
-        <el-form-item label="提交者ID" prop="applyId">
-          <el-input
-            v-model="formData.applyId"
-            placeholder="请输入提交者ID"
-            clearable
-            suffix-icon="el-icon-user"
-            :style="{ width: '100%' }"
-          ></el-input>
-        </el-form-item>
-        <el-form-item
-          v-if="typeValue == 'repair'"
-          label="维修者ID"
-          prop="repairId"
-        >
-          <el-input
-            v-model="formData.repairId"
-            placeholder="请输入维修者ID"
-            clearable
-            suffix-icon="el-icon-user"
-            :style="{ width: '100%' }"
-          ></el-input>
-        </el-form-item>
-        <el-form-item v-else label="解决者ID" prop="finishId">
-          <el-input
-            v-model="formData.finishId"
-            placeholder="请输入解决者ID"
-            clearable
-            suffix-icon="el-icon-user"
-            :style="{ width: '100%' }"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="标题" prop="title">
-          <el-input
-            v-model="formData.title"
-            placeholder="请输入标题"
-            clearable
-            :style="{ width: '100%' }"
-          ></el-input>
-        </el-form-item>
+        <el-row>
+          <el-form-item label="提交者ID" prop="applyId">
+            <el-input
+              v-model="formData.applyId"
+              placeholder="请输入提交者ID"
+              clearable
+              suffix-icon="el-icon-user"
+              :style="{ width: '100%' }"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            v-if="typeValue == 'repair'"
+            label="维修者ID"
+            prop="repairId"
+          >
+            <el-input
+              v-model="formData.repairId"
+              placeholder="请输入维修者ID"
+              clearable
+              suffix-icon="el-icon-user"
+              :style="{ width: '100%' }"
+            ></el-input>
+          </el-form-item>
+          <el-form-item v-else label="解决者ID" prop="finishId">
+            <el-input
+              v-model="formData.finishId"
+              placeholder="请输入解决者ID"
+              clearable
+              suffix-icon="el-icon-user"
+              :style="{ width: '100%' }"
+            ></el-input>
+          </el-form-item>
+        </el-row>
+
+        <el-row>
+          <el-form-item label="标题" prop="title">
+            <el-input
+              v-model="formData.title"
+              placeholder="请输入标题"
+              clearable
+              :style="{ width: '100%' }"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="地点" prop="place">
+            <el-input
+              v-model="formData.place"
+              placeholder="请输入地点"
+              clearable
+              :style="{ width: '100%' }"
+            ></el-input>
+          </el-form-item>
+        </el-row>
+
+        <!-- <el-row> -->
         <el-form-item label="内容" prop="content">
           <el-input
             v-model="formData.content"
+            type="textarea"
             placeholder="请输入内容"
             clearable
-            :style="{ width: '100%' }"
+            :style="{ width: '42%' }"
           ></el-input>
         </el-form-item>
-        <el-form-item label="地点" prop="place">
-          <el-input
-            v-model="formData.place"
-            placeholder="请输入地点"
-            clearable
-            :style="{ width: '100%' }"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="纬度" prop="latitude">
-          <el-input
-            v-model="formData.latitude"
-            placeholder="请输入纬度"
-            clearable
-            :style="{ width: '100%' }"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="经度" prop="longitude">
-          <el-input
-            v-model="formData.longitude"
-            placeholder="请输入经度"
-            clearable
-            :style="{ width: '100%' }"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="经度" prop="longitude">
-          <el-input
-            v-model="formData.longitude"
-            placeholder="请输入经度"
-            clearable
-            :style="{ width: '100%' }"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="提交时间" prop="applyDate">
-          <el-date-picker
-            v-model="formData.applyDate"
-            type="datetime"
-            placeholder="Select date and time"
-          >
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="解决时间" prop="finishDate">
-          <el-date-picker
-            v-model="formData.finishDate"
-            type="datetime"
-            placeholder="Select date and time"
-          >
-          </el-date-picker>
-        </el-form-item>
-        <el-radio v-model="radio1" label="1">Option 1</el-radio>
-    <el-radio v-model="radio1" label="2">Option 2</el-radio>
+        <!-- </el-row> -->
+        <el-row>
+          <el-form-item label="纬度" prop="latitude">
+            <el-input
+              v-model="formData.latitude"
+              placeholder="请输入纬度"
+              clearable
+              :style="{ width: '100%' }"
+            ></el-input>
+          </el-form-item>
 
-     
+          <el-form-item label="经度" prop="longitude">
+            <el-input
+              v-model="formData.longitude"
+              placeholder="请输入经度"
+              clearable
+              :style="{ width: '100%' }"
+            ></el-input>
+          </el-form-item>
+        </el-row>
+
+        <el-row>
+          <el-form-item label="提交时间" prop="applyDate">
+            <el-date-picker
+              v-model="formData.applyDate"
+              type="datetime"
+              placeholder="Select date and time"
+              format="YYYY-MM-DD HH:mm:ss"
+              value-format="YYYY-MM-DD HH:mm:ss"
+            >
+            </el-date-picker>
+          </el-form-item>
+          <el-form-item label="解决时间" prop="finishDate">
+            <el-date-picker
+              v-model="formData.finishDate"
+              type="datetime"
+              placeholder="Select date and time"
+              format="YYYY-MM-DD HH:mm:ss"
+              value-format="YYYY-MM-DD HH:mm:ss"
+            >
+            </el-date-picker>
+          </el-form-item>
+        </el-row>
+        <div style="margin-left: 50px">
+          <el-radio v-model="formData.state" label="0">未完成</el-radio>
+          <el-radio v-model="formData.state" label="1">已完成</el-radio>
+        </div>
+        <div style="padding-left: 380px">
+          <el-form-item size="large">
+            <el-button type="primary" @click="submitForm">提交</el-button>
+            <el-button @click="resetForm">重置</el-button>
+          </el-form-item>
+        </div>
       </el-form>
     </div>
   </el-dialog>
@@ -237,6 +255,9 @@
 import { ElMessage } from "element-plus";
 import { ref, defineComponent, reactive, onMounted } from "vue";
 import http from "../utils/http";
+import { getCurrentInstance } from "vue";
+
+// const { proxy } = getCurrentInstance();
 // 可选项
 let options1 = ref([
   {
@@ -296,9 +317,9 @@ function getEventList() {
       })
       .then((res) => {
         tableData.data = res.data.data.records;
-        console.log(tableData);
+        // console.log(tableData);
         total.value = res.data.data.total;
-        console.log(total.value);
+        // console.log(total.value);
       });
   } else {
     //   向lost_and_found表发起查询
@@ -315,9 +336,14 @@ function getEventList() {
       .then((res) => {
         tableData.data = res.data.data.records;
 
-        console.log(tableData);
+        // console.log(tableData);
         total.value = res.data.data.total;
-        console.log(total.value);
+        // console.log(total.value);
+        if (typeValue.value == "0") {
+          formData.value.type = "0";
+        } else if (typeValue.value == "1") {
+          formData.value.type = "1";
+        }
       });
   }
 }
@@ -337,15 +363,124 @@ function sizeChange() {
 
 // 对话框事件编辑
 let dialogVisible = ref(false);
-let formData = reactive({});
+let formType = ref("");
+let formData = ref({
+  id: "",
+  applyId: "",
+  repairId: "",
+  finishId: "",
+  title: "",
+  content: "",
+  place: "",
+  latitude: "",
+  longitude: "",
+  applyDate: "",
+  finishDate: "",
+  repairType: "0",
+  type: "",
+  state: "0",
+});
 let rules = reactive([]);
-function addEvent() {}
-function handleEdit(index: any, row: any) {}
+// 重置表单数据
+function resetForm() {
+  formData.value = {
+    id: "",
+    applyId: "",
+    repairId: "",
+    finishId: "",
+    title: "",
+    content: "",
+    place: "",
+    latitude: "",
+    longitude: "",
+    applyDate: "",
+    finishDate: "",
+    repairType: "0",
+    type: "",
+    state: "0",
+  };
+  if (typeValue.value == "0") {
+    formData.value.type = "0";
+  } else if (typeValue.value == "1") {
+    formData.value.type = "1";
+  }
+}
+// 提交表单
+function submitForm() {
+  //   console.log(formData.value.applyDate);
+  if (formType.value == "post" && typeValue.value == "repair") {
+    formData.value.id = "";
+    // console.log(formData.value);
+    http.post("/api/repairs", formData.value).then((res: any) => {
+      //   console.log("res为", res);
+      ElMessage({
+        message: "repairs添加成功",
+        type: "success",
+      });
+      getEventList();
+    });
+  }
+  if (formType.value == "post" && typeValue.value != "repair") {
+    formData.value.id = "";
+    console.log(formData.value);
+    http.post("/api/lostandfounds", formData.value).then((res: any) => {
+      ElMessage({
+        message: "lostandfounds添加成功",
+        type: "success",
+      });
+      getEventList();
+    });
+  }
+  if (formType.value == "put" && typeValue.value == "repair") {
+    console.log(formData.value);
+    http.put("/api/repairs", formData.value).then((res: any) => {
+      ElMessage({
+        message: "repairs修改成功",
+        type: "success",
+      });
+      getEventList();
+    });
+  }
+  if (formType.value == "put" && typeValue.value != "repair") {
+    http.put("/api/lostandfounds", formData.value).then((res: any) => {
+      ElMessage({
+        message: "lostandfounds修改成功",
+        type: "success",
+      });
+      getEventList();
+    });
+  }
+  dialogVisible.value = false;
+  resetForm();
+  //   });
+}
+
+// 添加
+function addEvent() {
+  resetForm();
+  formType.value = "post";
+  dialogVisible.value = true;
+}
+
+// 编辑
+function handleEdit(index: any, row: any) {
+  dialogVisible.value = true;
+  formType.value = "put";
+  formData.value = row;
+  if (typeValue.value == "0") {
+    formData.value.type = "0";
+  } else if (typeValue.value == "1") {
+    formData.value.type = "1";
+  }
+  console.log("state: ",formData.value.state);
+    console.log("type: ",formData.value.type);
+}
+
 // 删除
 function handleDelete(index: any, row: any) {
   if (typeValue.value == "repair") {
     console.log(index, row);
-    http.delete("/repairs/" + row.id).then((res) => {
+    http.delete("/api/repairs/" + row.id).then((res) => {
       console.log(res);
       getEventList();
     });

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-
-import {getCurrentInstance} from "vue";
 import {useStore} from 'vuex'
+import {useRouter} from "vue-router";
 // @ts-ignore
-const {proxy} = getCurrentInstance();
 const store = useStore()
+const router = useRouter()
 
 //在页面加载时读取sessionStorage里的状态信息
 if (sessionStorage.getItem("store")) {
@@ -16,6 +15,8 @@ if (sessionStorage.getItem("store")) {
 window.addEventListener("beforeunload", () => {
     sessionStorage.setItem("store", JSON.stringify(store.state))
 })
+
+
 </script>
 
 <template>

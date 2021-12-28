@@ -18,7 +18,7 @@ let userName = computed(() => store.state.userName)
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requireAuth)) { // 判断该路由是否需要登录权限
         console.log('需要登录');
-        if (userName.value != "") { // 判断当前的用户是否已经登录
+        if (userName.value !== "") { // 判断当前的用户是否已经登录
             next();
         } else {
             next({

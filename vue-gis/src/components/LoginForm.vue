@@ -39,16 +39,16 @@ defineProps({
 
 
 // @ts-ignore
-const {ctx} = getCurrentInstance();
+const {proxy} = getCurrentInstance();
 const router = useRouter()
 const store = useStore()
 // 触发登录方法
 const handleLogin = (formName: string) => {
-    ctx.$refs[formName].validate((valid: boolean) => {
+    proxy.$refs[formName].validate((valid: boolean) => {
         if (valid) {
             axios.post('/api/users/login', {
-                userName: ctx.loginUser.name,
-                password: ctx.loginUser.password,
+                userName: proxy.loginUser.name,
+                password: proxy.loginUser.password,
             }).then((res: any) => {
                 console.log(res);
                 ElMessage({
@@ -63,9 +63,7 @@ const handleLogin = (formName: string) => {
                     address: res.data.data.address,
                     affiliation: res.data.data.affiliation
                 }
-                console.log(payload)
                 store.commit('changeUser', payload)
-                console.log(store.state)
                 router.push('/')
             });
         } else {

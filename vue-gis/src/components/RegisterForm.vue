@@ -62,19 +62,19 @@ defineProps({
 });
 
 // @ts-ignore
-const {ctx} = getCurrentInstance();
+const {proxy} = getCurrentInstance();
 const router = useRouter()
 const store = useStore()
 const handleRegister = (formName: string) => {
-    ctx.$refs[formName].validate((valid: boolean) => {
+    proxy.$refs[formName].validate((valid: boolean) => {
         if (valid) {
             axios.post('/api/users/register', {
-                userName: ctx.registerUser.name,
-                realName: ctx.registerUser.name,
-                password: ctx.registerUser.password,
-                phoneNumber: ctx.registerUser.phoneNumber,
-                address: ctx.registerUser.address,
-                type: ctx.registerUser.role,
+                userName: proxy.registerUser.name,
+                realName: proxy.registerUser.name,
+                password: proxy.registerUser.password,
+                phoneNumber: proxy.registerUser.phoneNumber,
+                address: proxy.registerUser.address,
+                type: proxy.registerUser.role,
             }).then((res: any) => {
                 console.log(res);
                 ElMessage({
@@ -82,11 +82,11 @@ const handleRegister = (formName: string) => {
                     type: 'success',
                 })
                 let payload = {
-                    userName: ctx.registerUser.name,
-                    realName: ctx.registerUser.name,
-                    phoneNumber: ctx.registerUser.phoneNumber,
-                    type: ctx.registerUser.role,
-                    address: ctx.registerUser.address,
+                    userName: proxy.registerUser.name,
+                    realName: proxy.registerUser.name,
+                    phoneNumber: proxy.registerUser.phoneNumber,
+                    type: proxy.registerUser.role,
+                    address: proxy.registerUser.address,
                     affiliation: "武汉大学"
                 }
                 store.commit('changeUser', payload)
@@ -94,7 +94,7 @@ const handleRegister = (formName: string) => {
             });
         } else {
             console.log("error submit!!");
-            ctx.$message({
+            proxy.$message({
                 message: '注册失败',
                 type: 'error'
             })
