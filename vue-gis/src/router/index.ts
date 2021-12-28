@@ -54,6 +54,14 @@ const router = createRouter({
                         requireAuth: true, // 判断是否需要登录
                     },
                 },
+                {
+                    path: "/lostcharts",
+                    name: "lostcharts",
+                    component: () => import("../views/lostCharts.vue"),
+                    meta: {
+                        requireAuth: true, // 判断是否需要登录
+                    },
+                }
             ],
         },
         {
