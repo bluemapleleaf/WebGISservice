@@ -39,9 +39,9 @@ const router = createRouter({
                     },
                 },
                 {
-                    path: "/analysis",
-                    name: "Analysis",
-                    component: () => import("../views/Analysis.vue"),
+                    path: "/heatmap",
+                    name: "HeatMap",
+                    component: () => import("../views/analyHeatMap.vue"),
                     meta: {
                         requireAuth: true, // 判断是否需要登录
                     },

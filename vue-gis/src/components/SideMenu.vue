@@ -26,12 +26,19 @@
       </el-icon>
       <template #title>事件公告发布</template>
     </el-menu-item>
-    <el-menu-item index="/analysis">
-      <el-icon>
-        <data-analysis />
-      </el-icon>
-      <template #title>可视化分析</template>
-    </el-menu-item>
+        <el-sub-menu index="1">
+      <template #title>
+        <el-icon>
+          <data-analysis />
+        </el-icon>
+        可视化分析
+      </template>
+      <el-menu-item index="/heatmap">
+        <template #title>
+          事件分布热力图
+        </template>
+      </el-menu-item>
+    </el-sub-menu>
   </el-menu>
 </template>
 
