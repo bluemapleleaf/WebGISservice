@@ -19,13 +19,12 @@
         :label="item.label"
       />
     </el-select>
-    <el-button
-      type="primary"
-      :icon="Search"
-      @click="updateData"
-      class="searchBtn"
-      >Search</el-button
-    >
+
+    <el-button type="primary" @click="updateData" class="searchBtn">
+      <el-icon style="vertical-align: middle;">
+        <search />
+      </el-icon>Search
+    </el-button>
   </div>
 </template>
 
@@ -45,6 +44,8 @@ import { fromLonLat } from "ol/proj.js";
 import point from "ol/geom/Point";
 import Feature from "ol/Feature";
 import VectorSource from "ol/source/Vector";
+import { Search } from '@element-plus/icons-vue'
+
 
 export default {
   name: "Param",
@@ -164,7 +165,7 @@ export default {
         setHeatMap(coordinates);
       });
     };
-    const updateData = () => {
+    function updateData() {
       dataType.chartKey += 1;
       var _dataType = dataType;
       initMap(_dataType.year, _dataType.type);
